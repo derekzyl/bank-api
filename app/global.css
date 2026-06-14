@@ -1440,6 +1440,31 @@ select.form-control {
     padding: 24px 16px;
     margin-bottom: 32px;
   }
+  
+  .top-nav {
+    padding: 0 8px;
+  }
+  
+  .top-nav-left {
+    gap: 8px;
+  }
+  
+  .top-nav-logo {
+    font-size: 18px;
+    gap: 4px;
+  }
+  
+  .top-nav-logo span.material-symbols-outlined {
+    font-size: 22px !important;
+  }
+  
+  .top-nav-right {
+    gap: 6px;
+  }
+  
+  .top-nav-right button.icon-btn:last-child {
+    display: none;
+  }
 }
 
 .github-star-badge {
