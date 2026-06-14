@@ -88,12 +88,22 @@ function search(query) {
 function getLogoPath(slug) {
     const bank = getBySlug(slug);
     const filename = bank ? (bank.logo_filename || 'default.svg') : 'default.svg';
-    const logoPath = path_1.default.join(__dirname, 'nigeria', 'logos', filename);
+    // Try process.cwd() first (for Next.js bundling/running)
+    let logoPath = path_1.default.join(process.cwd(), 'nigeria', 'logos', filename);
     if (fs_1.default.existsSync(logoPath)) {
         return logoPath;
     }
-    const defaultPath = path_1.default.join(__dirname, 'nigeria', 'logos', 'default.svg');
-    return fs_1.default.existsSync(defaultPath) ? defaultPath : null;
+    // Fallback to __dirname
+    logoPath = path_1.default.join(__dirname, 'nigeria', 'logos', filename);
+    if (fs_1.default.existsSync(logoPath)) {
+        return logoPath;
+    }
+    const defaultCwd = path_1.default.join(process.cwd(), 'nigeria', 'logos', 'default.svg');
+    if (fs_1.default.existsSync(defaultCwd)) {
+        return defaultCwd;
+    }
+    const defaultDirname = path_1.default.join(__dirname, 'nigeria', 'logos', 'default.svg');
+    return fs_1.default.existsSync(defaultDirname) ? defaultDirname : null;
 }
 /**
  * Retrieves the raw binary Buffer of the bank's logo file.
@@ -113,10 +123,11 @@ function getLogoBase64(slug) {
     if (bank && bank.logo_base64) {
         return bank.logo_base64;
     }
-    const defaultPath = path_1.default.join(__dirname, 'nigeria', 'logos', 'default.svg');
-    if (fs_1.default.existsSync(defaultPath)) {
-        const content = fs_1.default.readFileSync(defaultPath).toString('base64');
-        return `data:image/svg+xml;base64,${content}`;
+    const logoPath = getLogoPath(slug);
+    if (logoPath && fs_1.default.existsSync(logoPath)) {
+        const contentType = logoPath.endsWith('.png') ? 'image/png' : 'image/svg+xml';
+        const content = fs_1.default.readFileSync(logoPath).toString('base64');
+        return `data:${contentType};base64,${content}`;
     }
     return '';
 }

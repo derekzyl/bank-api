@@ -95,14 +95,26 @@ export function search(query: string | null | undefined): Bank[] {
 export function getLogoPath(slug: string | null | undefined): string | null {
   const bank = getBySlug(slug);
   const filename = bank ? (bank.logo_filename || 'default.svg') : 'default.svg';
-  const logoPath = path.join(__dirname, 'nigeria', 'logos', filename);
   
+  // Try process.cwd() first (for Next.js bundling/running)
+  let logoPath = path.join(process.cwd(), 'nigeria', 'logos', filename);
   if (fs.existsSync(logoPath)) {
     return logoPath;
   }
   
-  const defaultPath = path.join(__dirname, 'nigeria', 'logos', 'default.svg');
-  return fs.existsSync(defaultPath) ? defaultPath : null;
+  // Fallback to __dirname
+  logoPath = path.join(__dirname, 'nigeria', 'logos', filename);
+  if (fs.existsSync(logoPath)) {
+    return logoPath;
+  }
+  
+  const defaultCwd = path.join(process.cwd(), 'nigeria', 'logos', 'default.svg');
+  if (fs.existsSync(defaultCwd)) {
+    return defaultCwd;
+  }
+
+  const defaultDirname = path.join(__dirname, 'nigeria', 'logos', 'default.svg');
+  return fs.existsSync(defaultDirname) ? defaultDirname : null;
 }
 
 /**
@@ -125,10 +137,11 @@ export function getLogoBase64(slug: string | null | undefined): string {
     return bank.logo_base64;
   }
   
-  const defaultPath = path.join(__dirname, 'nigeria', 'logos', 'default.svg');
-  if (fs.existsSync(defaultPath)) {
-    const content = fs.readFileSync(defaultPath).toString('base64');
-    return `data:image/svg+xml;base64,${content}`;
+  const logoPath = getLogoPath(slug);
+  if (logoPath && fs.existsSync(logoPath)) {
+    const contentType = logoPath.endsWith('.png') ? 'image/png' : 'image/svg+xml';
+    const content = fs.readFileSync(logoPath).toString('base64');
+    return `data:${contentType};base64,${content}`;
   }
   
   return '';
