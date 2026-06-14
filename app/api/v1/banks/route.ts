@@ -1,15 +1,15 @@
-import { NextResponse } from 'next/server';
-import nigeria from '../../../../index';
+import { NextRequest, NextResponse } from 'next/server';
+import { allBanks, Bank } from '../../../../index';
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     
     // Pagination params
     const pageVal = searchParams.get('page');
     const limitVal = searchParams.get('limit');
-    let page = parseInt(pageVal, 10);
-    let limit = parseInt(limitVal, 10);
+    let page = parseInt(pageVal || '1', 10);
+    let limit = parseInt(limitVal || '50', 10);
     
     if (isNaN(page) || page < 1) page = 1;
     if (isNaN(limit) || limit < 1) limit = 50;
@@ -22,7 +22,7 @@ export async function GET(request) {
     const slug = searchParams.get('slug');
 
     // Get all banks from library
-    let filteredBanks = nigeria.allBanks();
+    let filteredBanks: Bank[] = allBanks();
 
     // 1. Country Filter
     if (country) {
@@ -73,7 +73,7 @@ export async function GET(request) {
       pages: totalPages,
       data: paginatedData
     });
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json({ error: 'Internal Server Error', details: err.message }, { status: 500 });
   }
 }

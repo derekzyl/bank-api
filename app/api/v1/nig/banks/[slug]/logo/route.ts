@@ -1,11 +1,17 @@
 import fs from 'fs';
-import { NextResponse } from 'next/server';
-import nigeria from '../../../../../../../index';
+import { NextRequest, NextResponse } from 'next/server';
+import { getLogoPath } from '../../../../../../../index';
 
-export async function GET(request, { params }) {
+interface RouteContext {
+  params: {
+    slug: string;
+  };
+}
+
+export async function GET(request: NextRequest, { params }: RouteContext) {
   try {
     const slug = params.slug;
-    const logoPath = nigeria.getLogoPath(slug);
+    const logoPath = getLogoPath(slug);
 
     if (!logoPath || !fs.existsSync(logoPath)) {
       return NextResponse.json({ error: 'Logo not found' }, { status: 404 });
@@ -20,7 +26,7 @@ export async function GET(request, { params }) {
         'Cache-Control': 'public, max-age=31536000, immutable'
       }
     });
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json({ error: 'Internal Server Error', details: err.message }, { status: 500 });
   }
 }

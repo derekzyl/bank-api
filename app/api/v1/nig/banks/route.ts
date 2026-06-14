@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import nigeria from '../../../../../index';
+import { NextRequest, NextResponse } from 'next/server';
+import { allBanks, getByCode, getBySlug, search } from '../../../../../index';
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const code = searchParams.get('code');
@@ -9,7 +9,7 @@ export async function GET(request) {
     const searchVal = searchParams.get('search');
 
     if (code) {
-      const bank = nigeria.getByCode(code);
+      const bank = getByCode(code);
       if (!bank) {
         return NextResponse.json({ error: 'Bank not found with specified code' }, { status: 404 });
       }
@@ -17,7 +17,7 @@ export async function GET(request) {
     }
 
     if (slug) {
-      const bank = nigeria.getBySlug(slug);
+      const bank = getBySlug(slug);
       if (!bank) {
         return NextResponse.json({ error: 'Bank not found with specified slug' }, { status: 404 });
       }
@@ -25,13 +25,13 @@ export async function GET(request) {
     }
 
     if (searchVal) {
-      const results = nigeria.search(searchVal);
+      const results = search(searchVal);
       return NextResponse.json(results);
     }
 
-    const banks = nigeria.allBanks();
+    const banks = allBanks();
     return NextResponse.json(banks);
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json({ error: 'Internal Server Error', details: err.message }, { status: 500 });
   }
 }

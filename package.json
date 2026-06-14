@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tsc index.ts --types node --declaration --target es2020 --module commonjs --esModuleInterop --skipLibCheck --ignoreConfig && next build",
     "start": "next start"
   },
   "files": [
@@ -27,5 +27,11 @@
     "next": "^14.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3"
   }
 }

@@ -1,17 +1,23 @@
-import { NextResponse } from 'next/server';
-import nigeria from '../../../../../../index';
+import { NextRequest, NextResponse } from 'next/server';
+import { getBySlug } from '../../../../../../index';
 
-export async function GET(request, { params }) {
+interface RouteContext {
+  params: {
+    slug: string;
+  };
+}
+
+export async function GET(request: NextRequest, { params }: RouteContext) {
   try {
     const slug = params.slug;
-    const bank = nigeria.getBySlug(slug);
+    const bank = getBySlug(slug);
 
     if (!bank) {
       return NextResponse.json({ error: `Bank not found with slug: ${slug}` }, { status: 404 });
     }
 
     return NextResponse.json(bank);
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json({ error: 'Internal Server Error', details: err.message }, { status: 500 });
   }
 }

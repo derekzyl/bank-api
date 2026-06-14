@@ -1,4 +1,6 @@
+import { ReactNode } from 'react';
 import './global.css';
+import LayoutShell from './LayoutShell';
 
 export const metadata = {
   title: 'Banks API | Global Financial Directory Developer Portal',
@@ -28,18 +30,35 @@ export const metadata = {
     description: 'A high-performance, developer-friendly API for global financial institutions, starting with comprehensive coverage of Nigerian banks, microfinance banks, and fintechs.',
     images: ['/og-image.png'],
   },
+};
+
+interface RootLayoutProps {
+  children: ReactNode;
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+        {/* Inline script to prevent theme flashing */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme') || 'system';
+                const root = document.documentElement;
+                if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  root.classList.add('dark');
+                } else {
+                  root.classList.remove('dark');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
       </head>
       <body>
-        {children}
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );
