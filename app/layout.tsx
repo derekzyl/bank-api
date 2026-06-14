@@ -3,6 +3,7 @@ import './global.css';
 import LayoutShell from './LayoutShell';
 
 export const metadata = {
+  metadataBase: new URL('https://banks.cybergenii.com'),
   title: 'Banks API | Global Financial Directory Developer Portal',
   description: 'A high-performance, developer-friendly API for global financial institutions, starting with comprehensive coverage of Nigerian banks, microfinance banks, and fintechs.',
   icons: {
@@ -15,7 +16,7 @@ export const metadata = {
     siteName: 'Banks API',
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://banks.cybergenii.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Banks API Social Media Preview',
@@ -28,7 +29,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Banks API | Global Financial Directory Developer Portal',
     description: 'A high-performance, developer-friendly API for global financial institutions, starting with comprehensive coverage of Nigerian banks, microfinance banks, and fintechs.',
-    images: ['/og-image.png'],
+    images: ['https://banks.cybergenii.com/og-image.png'],
   },
 };
 
