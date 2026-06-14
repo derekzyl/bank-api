@@ -1,0 +1,31 @@
+{
+  "name": "nigerian-banks",
+  "version": "0.1.0",
+  "description": "A comprehensive package to get Nigerian bank names, slugs, codes, USSDs, and logos.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "files": [
+    "index.js",
+    "banks.json",
+    "nigeria/logos"
+  ],
+  "keywords": [
+    "nigerian-banks",
+    "nigeria",
+    "banks",
+    "ussd",
+    "logos",
+    "fintech"
+  ],
+  "author": "Cybergenii",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

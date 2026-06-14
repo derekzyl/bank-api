@@ -1,0 +1,88 @@
+Metadata-Version: 2.4
+Name: nigerian-banks
+Version: 0.1.0
+Summary: A comprehensive Python package to get Nigerian bank names, slugs, codes, USSDs, and logos.
+Author: Cybergenii
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Office/Business :: Financial
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# Nigerian Banks Data Package (`nigeria`)
+
+A comprehensive, lightweight Python package providing up-to-date information for all registered banks in Nigeria (including commercial banks, microfinance banks, and fintechs). 
+
+It provides name, slug, bank routing code, USSD code, and high-quality logo assets (via local file paths, raw bytes, or base64-encoded data URLs).
+
+## Installation
+
+For local development, navigate to the directory and run:
+```bash
+pip install -e .
+```
+
+## Usage
+
+### Import the package
+```python
+import nigeria
+```
+
+### Retrieve All Banks
+Get a list of all 440+ registered financial institutions:
+```python
+banks = nigeria.all_banks()
+print(f"Total institutions: {len(banks)}")
+# Output: Total institutions: 442
+```
+
+### Retrieve by Bank Code
+Fetch a specific bank using its NIP/NIBSS routing code:
+```python
+bank = nigeria.get_by_code("058")
+print(bank)
+# Output: {'name': 'Guaranty Trust Bank', 'slug': 'guaranty-trust-bank', 'code': '058', 'ussd': '*737#', ...}
+```
+
+### Retrieve by Slug
+Fetch a specific bank using its URL-friendly slug:
+```python
+bank = nigeria.get_by_slug("kuda-bank")
+print(bank)
+# Output: {'name': 'Kuda Bank', 'slug': 'kuda-bank', 'code': '50211', 'ussd': '*894#', ...}
+```
+
+### Search Banks
+Perform a case-insensitive search across names, slugs, codes, and USSD dial strings:
+```python
+# Search for microfinance banks
+mfbs = nigeria.search("microfinance")
+
+# Search for a specific USSD string
+results = nigeria.search("*901#")
+```
+
+### Logo Access APIs
+
+You can retrieve logo assets in three different formats depending on your application needs:
+
+1. **Local File Path**: Useful if you need to reference the local PNG/SVG files directly.
+```python
+path = nigeria.get_logo_path("access-bank")
+print(path)
+# Output: /path/to/nigeria/logos/access-bank.png
+```
+
+2. **Base64 Data URL (Pre-computed)**: Perfect for directly embedding in HTML `<img src="..."/>` tags in web frontends, APIs, or React/Vue apps.
+```python
+base64_logo = nigeria.get_logo_base64("palmpay")
+# Output: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...
+```
+
+3. **Raw Binary Bytes**: Helpful if you are saving the image to another location or serving it dynamically in a web server.
+```python
+logo_bytes = nigeria.get_logo_bytes("zenith-bank")
+```
