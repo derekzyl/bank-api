@@ -112,7 +112,7 @@ export default function ApiKeys() {
 
       {/* Analytics Chart */}
       <div className="bento-card" style={{ padding: '24px', marginBottom: '32px', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }} className="section-header-row">
           <div>
             <h3 className="headline-sm" style={{ fontSize: '18px' }}>Integration Analytics</h3>
             <p className="body-sm" style={{ margin: 0 }}>API usage stats over the last week.</p>
@@ -260,7 +260,7 @@ export default function ApiKeys() {
 
       {/* API Key management */}
       <div className="bento-card" style={{ padding: '24px', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <div style={{ marginBottom: '24px' }} className="section-header-row">
           <div>
             <h3 className="headline-sm" style={{ fontSize: '18px' }}>API Credentials</h3>
             <p className="body-sm" style={{ margin: 0 }}>Create and manage private API keys for your servers.</p>

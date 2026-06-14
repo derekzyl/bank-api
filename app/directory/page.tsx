@@ -94,7 +94,7 @@ function DirectoryContent() {
 
       {/* Directory controls */}
       <div className="directory-controls">
-        <div className="top-nav-search" style={{ display: 'flex', flex: 1, width: '100%', maxWidth: '480px' }}>
+        <div className="directory-search">
           <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--outline)' }}>search</span>
           <input 
             type="text" 
@@ -103,7 +103,7 @@ function DirectoryContent() {
             onChange={handleSearchChange}
           />
         </div>
-        <div style={{ color: 'var(--outline)', fontSize: '14px', marginLeft: 'auto' }}>
+        <div className="directory-result-count">
           Found {totalRecords} financial institutions
         </div>
       </div>

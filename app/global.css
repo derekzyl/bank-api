@@ -130,6 +130,12 @@ body {
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
   transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+}
+
+.layout-root {
+  overflow-x: hidden;
+  width: 100%;
 }
 
 input, select, textarea, button {
@@ -417,6 +423,7 @@ a {
   padding: var(--spacing-gutter);
   max-width: var(--spacing-container-max);
   width: 100%;
+  min-width: 0;
   margin-right: auto;
   transition: margin-left 0.3s ease;
 }
@@ -511,8 +518,39 @@ a {
 
 .hero-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   margin-top: 32px;
+}
+
+/* SHARED LAYOUT UTILITIES */
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.input-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.input-row .form-control {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 80;
 }
 
 /* BUTTONS */
@@ -673,7 +711,8 @@ a {
 
 .endpoint-url-box {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -682,14 +721,18 @@ a {
   font-weight: 700;
   font-size: 14px;
   color: var(--on-surface);
+  word-break: break-all;
 }
 
 .parameter-table-container {
   margin-top: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .parameter-table {
   width: 100%;
+  min-width: 480px;
   border-collapse: collapse;
   text-align: left;
 }
@@ -978,11 +1021,49 @@ select.form-control {
 }
 
 /* DIRECTORY STYLING */
+.directory-search {
+  display: flex;
+  align-items: center;
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 6px 12px;
+  gap: 8px;
+  flex: 1;
+  width: 100%;
+  max-width: 480px;
+  transition: all 0.2s ease;
+}
+
+.directory-search:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--glow-primary-hover);
+}
+
+.directory-search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+  color: var(--on-surface);
+}
+
+.directory-search input::placeholder {
+  color: var(--outline);
+}
+
 .directory-controls {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 24px;
+}
+
+.directory-result-count {
+  color: var(--outline);
+  font-size: 14px;
+  margin-left: auto;
 }
 
 @media (min-width: 768px) {
@@ -1380,17 +1461,19 @@ select.form-control {
   .menu-toggle {
     display: flex;
   }
-  .top-nav-center {
+  .top-nav .top-nav-search {
     display: none;
   }
-  .top-nav-search {
+  .top-nav-center {
     display: none;
   }
   .sidebar-nav {
     transform: translateX(-100%);
+    box-shadow: none;
   }
   .sidebar-nav.open {
     transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
   }
   .main-canvas {
     margin-left: 0;
@@ -1398,6 +1481,7 @@ select.form-control {
   
   .api-section {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
   .api-section-right {
     position: static;
@@ -1408,11 +1492,55 @@ select.form-control {
   .bento-card-large {
     grid-column: span 1;
   }
+
+  .display-lg {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .headline-md {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .headline-sm {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .hero-actions .btn {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .status-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .incident-header {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .key-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .key-row > div:last-child {
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
+  }
 }
 
 @media (max-width: 600px) {
   :root {
     --spacing-gutter: 12px;
+    --spacing-section-gap: 40px;
   }
   
   .main-canvas {
@@ -1420,7 +1548,20 @@ select.form-control {
   }
   
   .directory-grid {
+    grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  .directory-controls {
+    align-items: stretch;
+  }
+
+  .directory-controls > div:last-child {
+    margin-left: 0 !important;
+  }
+
+  .directory-result-count {
+    margin-left: 0;
   }
   
   .bank-card {
@@ -1429,41 +1570,133 @@ select.form-control {
   
   .modal-overlay {
     padding: 12px;
+    align-items: flex-end;
   }
   
   .modal-content {
     padding: 20px;
     border-radius: var(--radius-lg);
+    max-height: 90vh;
+    overflow-y: auto;
   }
   
   .hero-card {
     padding: 24px 16px;
     margin-bottom: 32px;
   }
+
+  .bento-card {
+    padding: 20px;
+  }
   
   .top-nav {
     padding: 0 8px;
+    gap: 8px;
   }
   
   .top-nav-left {
     gap: 8px;
+    min-width: 0;
+    flex: 1;
   }
   
   .top-nav-logo {
     font-size: 18px;
     gap: 4px;
+    min-width: 0;
+  }
+
+  .top-nav-logo span:not(.material-symbols-outlined) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .top-nav-logo span.material-symbols-outlined {
     font-size: 22px !important;
+    flex-shrink: 0;
   }
   
   .top-nav-right {
     gap: 6px;
+    flex-shrink: 0;
   }
   
   .top-nav-right button.icon-btn:last-child {
     display: none;
+  }
+
+  .display-lg {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .headline-md {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .headline-sm {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .btn {
+    padding: 10px 18px;
+  }
+
+  .metrics-row {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-value {
+    font-size: 24px;
+  }
+
+  .status-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+
+  .section-header-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .section-header-row .btn {
+    width: 100%;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  .input-row .btn {
+    width: 100%;
+  }
+
+  .code-panel-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
   }
 }
 

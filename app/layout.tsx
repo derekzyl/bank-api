@@ -2,6 +2,11 @@ import { ReactNode } from 'react';
 import './global.css';
 import LayoutShell from './LayoutShell';
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata = {
   metadataBase: new URL('https://banks.cybergenii.com'),
   title: 'Banks API | Global Financial Directory Developer Portal',

@@ -93,6 +93,18 @@ export default function LayoutShell({ children }: LayoutShellProps) {
     setMobileOpen(false);
   }, [pathname]);
 
+  // Prevent background scroll when mobile nav is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
@@ -222,7 +234,7 @@ export default function LayoutShell({ children }: LayoutShellProps) {
 
       <div className="layout-shell">
         {/* Sidebar Navigation */}
-        <aside className={`sidebar-nav ${mobileOpen ? 'open' : ''}`}>
+        <aside className={`sidebar-nav ${mobileOpen ? 'open' : ''}`} onClick={() => setMobileOpen(false)}>
           <div className="sidebar-section">
             <div className="sidebar-section-title">CORE REFERENCE</div>
             <div className="sidebar-links">
@@ -319,17 +331,10 @@ export default function LayoutShell({ children }: LayoutShellProps) {
 
         {/* Mobile Sidebar overlay */}
         {mobileOpen && (
-          <div 
-            style={{
-              position: 'fixed',
-              top: '64px',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.4)',
-              zIndex: 80
-            }}
+          <div
+            className="mobile-overlay"
             onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
           />
         )}
 

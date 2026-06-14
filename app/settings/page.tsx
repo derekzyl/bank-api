@@ -69,7 +69,7 @@ export default function Settings() {
           
           <div className="form-group">
             <label>Payload Destination URL</label>
-            <div style={{ display: 'flex', gap: '12px' }}>
+            <div className="input-row">
               <input 
                 type="url" 
                 className="form-control" 
