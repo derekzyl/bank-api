@@ -48,7 +48,7 @@ export default function Settings() {
   };
 
   return (
-    <div>
+    <div className="page-shell">
       <h1 className="headline-md" style={{ marginBottom: '8px' }}>Developer Settings</h1>
       <p className="body-md" style={{ marginBottom: '32px' }}>
         Configure webhook endpoints, custom domains, notification alerts, and developer profiles.
@@ -195,7 +195,7 @@ export default function Settings() {
 
         {/* Submit button bar */}
         <div>
-          <button type="submit" className="btn btn-primary" style={{ minWidth: '180px' }}>
+          <button type="submit" className="btn btn-primary btn-mobile-full">
             <span className="material-symbols-outlined">save</span>
             Save Preferences
           </button>

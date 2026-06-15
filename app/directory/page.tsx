@@ -86,7 +86,7 @@ function DirectoryContent() {
   };
 
   return (
-    <div>
+    <div className="page-shell">
       <h1 className="headline-md" style={{ marginBottom: '8px' }}>Bank Directory</h1>
       <p className="body-md" style={{ marginBottom: '32px' }}>
         Search, explore, and retrieve integration details for financial institutions, microfinance banks, and fintechs covered under our API.
@@ -181,7 +181,7 @@ function DirectoryContent() {
               <span className="material-symbols-outlined">close</span>
             </button>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
+            <div className="modal-header-row">
               <div 
                 className="bank-card-logo" 
                 style={{ 
@@ -201,14 +201,14 @@ function DirectoryContent() {
               </div>
               <div>
                 <h2 className="headline-sm" style={{ margin: 0 }}>{selectedBank.name}</h2>
-                <p className="body-sm" style={{ color: 'var(--primary)', fontFamily: 'var(--font-mono)', margin: '4px 0 0 0' }}>
+                <p className="body-sm" style={{ color: 'var(--primary)', fontFamily: 'var(--font-mono)', margin: '4px 0 0 0', wordBreak: 'break-all' }}>
                   {selectedBank.slug}
                 </p>
               </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--outline-variant)' }}>
+              <div className="detail-row">
                 <span className="font-code" style={{ fontSize: '12px', color: 'var(--outline)' }}>ROUTING CODE</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span className="font-code" style={{ fontWeight: '700', color: 'var(--on-surface)' }}>{selectedBank.code || 'N/A'}</span>
@@ -227,17 +227,17 @@ function DirectoryContent() {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--outline-variant)' }}>
+              <div className="detail-row">
                 <span className="font-code" style={{ fontSize: '12px', color: 'var(--outline)' }}>USSD DIAL CODE</span>
                 <span className="font-code" style={{ fontWeight: '700', color: 'var(--on-surface)' }}>{selectedBank.ussd || 'N/A'}</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--outline-variant)' }}>
+              <div className="detail-row">
                 <span className="font-code" style={{ fontSize: '12px', color: 'var(--outline)' }}>COUNTRY REGION</span>
                 <span style={{ fontWeight: '600', color: 'var(--on-surface-variant)' }}>{selectedBank.country || 'Nigeria'}</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--outline-variant)' }}>
+              <div className="detail-row">
                 <span className="font-code" style={{ fontSize: '12px', color: 'var(--outline)' }}>LOGO CDN LINK</span>
                 <a 
                   href={`/api/v1/nig/banks/${selectedBank.slug}/logo`} 
@@ -250,10 +250,9 @@ function DirectoryContent() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '16px' }}>
+            <div className="modal-actions">
               <button 
                 className="btn btn-primary" 
-                style={{ flex: 1 }}
                 onClick={() => { setSelectedBank(null); openPlayground(selectedBank.slug); }}
               >
                 <span className="material-symbols-outlined">api</span>
@@ -261,7 +260,6 @@ function DirectoryContent() {
               </button>
               <button 
                 className="btn btn-secondary" 
-                style={{ flex: 1 }}
                 onClick={() => setSelectedBank(null)}
               >
                 Close Details

@@ -74,7 +74,7 @@ export default function ApiKeys() {
   };
 
   return (
-    <div>
+    <div className="page-shell">
       <h1 className="headline-md" style={{ marginBottom: '8px' }}>Developer Dashboard</h1>
       <p className="body-md" style={{ marginBottom: '32px' }}>
         Manage your API credentials, view request analytics, monitor rate limits, and track integration metrics.
@@ -117,7 +117,7 @@ export default function ApiKeys() {
             <h3 className="headline-sm" style={{ fontSize: '18px' }}>Integration Analytics</h3>
             <p className="body-sm" style={{ margin: 0 }}>API usage stats over the last week.</p>
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div className="chart-toggle-row">
             <button 
               className={`btn btn-sm ${chartType === 'volume' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => setChartType('volume')}
@@ -135,7 +135,7 @@ export default function ApiKeys() {
 
         <div className="chart-container">
           {chartType === 'volume' ? (
-            <svg viewBox="0 0 700 200" width="100%" height="100%" style={{ overflow: 'visible' }}>
+            <svg viewBox="0 0 700 200" width="100%" height="100%">
               {/* Grid Lines */}
               <line x1="50" y1="20" x2="680" y2="20" stroke="var(--outline-variant)" strokeDasharray="4" />
               <line x1="50" y1="70" x2="680" y2="70" stroke="var(--outline-variant)" strokeDasharray="4" />
@@ -195,7 +195,7 @@ export default function ApiKeys() {
               </defs>
             </svg>
           ) : (
-            <svg viewBox="0 0 700 200" width="100%" height="100%" style={{ overflow: 'visible' }}>
+            <svg viewBox="0 0 700 200" width="100%" height="100%">
               {/* Grid Lines */}
               <line x1="50" y1="20" x2="680" y2="20" stroke="var(--outline-variant)" strokeDasharray="4" />
               <line x1="50" y1="70" x2="680" y2="70" stroke="var(--outline-variant)" strokeDasharray="4" />
@@ -276,7 +276,7 @@ export default function ApiKeys() {
             No credentials found. Generate a key above to start query integrations.
           </div>
         ) : (
-          <div style={{ border: '1px solid var(--outline-variant)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+          <div className="keys-list">
             {keys.map((k) => (
               <div key={k.id} className="key-row">
                 <div className="key-info">
@@ -308,7 +308,7 @@ export default function ApiKeys() {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div className="key-actions">
                   <span className="nav-version-badge" style={{ textTransform: 'uppercase', fontSize: '9px' }}>
                     {k.scope}
                   </span>
@@ -382,11 +382,11 @@ export default function ApiKeys() {
               </select>
             </div>
 
-            <div style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>
-              <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>
+            <div className="modal-actions" style={{ marginTop: '32px' }}>
+              <button type="submit" className="btn btn-primary">
                 Generate Credentials
               </button>
-              <button type="button" className="btn btn-secondary" style={{ flex: 1 }} onClick={() => setShowCreateModal(false)}>
+              <button type="button" className="btn btn-secondary" onClick={() => setShowCreateModal(false)}>
                 Cancel
               </button>
             </div>

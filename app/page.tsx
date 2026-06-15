@@ -143,7 +143,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="page-shell">
       {/* Hero Section */}
       <section id="introduction" className="hero-card">
         <div className="hero-glow"></div>

@@ -40,7 +40,7 @@ export default function Status() {
   };
 
   return (
-    <div>
+    <div className="page-shell">
       <h1 className="headline-md" style={{ marginBottom: '8px' }}>Service Status</h1>
       <p className="body-md" style={{ marginBottom: '32px' }}>
         Live service status monitor showing node health, CDN delivery latency, and recent systems logs.
@@ -130,30 +130,30 @@ export default function Status() {
         <div className="bento-card bento-card-large" style={{ padding: '24px', display: 'block' }}>
           <h3 className="headline-sm" style={{ fontSize: '18px', marginBottom: '16px' }}>Regional Latencies</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--outline-variant)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)' }}>public</span>
+            <div className="latency-row">
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)', flexShrink: 0 }}>public</span>
                 <span>Lagos, NG (AF-SOUTH-1)</span>
               </span>
               <span className="font-code" style={{ color: 'var(--tertiary)', fontWeight: '700' }}>14 ms</span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--outline-variant)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)' }}>public</span>
+            <div className="latency-row">
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)', flexShrink: 0 }}>public</span>
                 <span>London, UK (EU-WEST-2)</span>
               </span>
               <span className="font-code" style={{ color: 'var(--tertiary)', fontWeight: '700' }}>58 ms</span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--outline-variant)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)' }}>public</span>
+            <div className="latency-row">
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)', flexShrink: 0 }}>public</span>
                 <span>Frankfurt, DE (EU-CENTRAL-1)</span>
               </span>
               <span className="font-code" style={{ color: 'var(--tertiary)', fontWeight: '700' }}>65 ms</span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--outline-variant)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)' }}>public</span>
+            <div className="latency-row">
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary)', flexShrink: 0 }}>public</span>
                 <span>New York, US (US-EAST-1)</span>
               </span>
               <span className="font-code" style={{ color: 'var(--tertiary)', fontWeight: '700' }}>109 ms</span>

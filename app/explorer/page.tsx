@@ -159,7 +159,7 @@ export default function Explorer() {
   };
 
   return (
-    <div>
+    <div className="page-shell">
       <h1 className="headline-md" style={{ marginBottom: '8px' }}>API Playground</h1>
       <p className="body-md" style={{ marginBottom: '32px' }}>
         Interact with the live Banks API endpoints directly from your browser. Configure headers, path bindings, and query parameters to test responses.
@@ -303,11 +303,11 @@ export default function Explorer() {
 
         {/* Right Column - Response Panel */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div className="code-panel" style={{ flex: 1, minHeight: '400px' }}>
+          <div className="code-panel playground-panel-tall" style={{ flex: 1, minHeight: '400px' }}>
             <div className="code-panel-header">
               <span className="code-panel-title">REQUEST URL</span>
             </div>
-            <div className="code-panel-body" style={{ color: 'var(--primary)', borderBottom: '1px solid var(--outline-variant)' }}>
+            <div className="code-panel-body request-url-body" style={{ color: 'var(--primary)', borderBottom: '1px solid var(--outline-variant)' }}>
               GET {typeof window !== 'undefined' ? window.location.origin : ''}{getRequestURL()}
             </div>
 
@@ -357,7 +357,7 @@ export default function Explorer() {
                 </div>
                 <div className="code-panel-body" style={{ maxHeight: '150px', overflowY: 'auto', fontSize: '12px' }}>
                   {headers.map((h, i) => (
-                    <div key={i} style={{ display: 'flex', gap: '8px' }}>
+                    <div key={i} className="response-header-line">
                       <span style={{ color: 'var(--primary)', fontWeight: '700' }}>{h.name}:</span>
                       <span>{h.value}</span>
                     </div>
